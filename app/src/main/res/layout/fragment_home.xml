@@ -13,9 +13,19 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/hai_binarian"
+        android:text="Hai"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        style="@style/TeksBesarBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="Hai"
+        app:layout_constraintStart_toEndOf="@+id/textHaiBinarian"
+        app:layout_constraintTop_toTopOf="@+id/textHaiBinarian" />
 
     <TextView
         android:id="@+id/textMauMakanApa"
@@ -28,17 +38,17 @@
         app:layout_constraintTop_toBottomOf="@+id/textHaiBinarian" />
 
     <ImageView
-        android:id="@+id/imageCart"
+        android:id="@+id/btnCart"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginEnd="16dp"
         android:contentDescription="@string/keranjang"
-        app:layout_constraintEnd_toStartOf="@+id/imageUser"
+        app:layout_constraintEnd_toStartOf="@+id/btnProfile"
         app:layout_constraintTop_toTopOf="@+id/textHaiBinarian"
         app:srcCompat="@drawable/ic_keranjang" />
 
     <ImageView
-        android:id="@+id/imageUser"
+        android:id="@+id/btnProfile"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginTop="16dp"

@@ -1,23 +1,20 @@
 package com.example.challenge2_binar.fragment
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.challenge2_binar.R
 import com.example.challenge2_binar.databinding.FragmentDialogBinding
 import com.example.challenge2_binar.viewModel.KeranjangViewModel
 import com.example.challenge2_binar.viewModel.ViewModelFactory
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class DialogFragment : DialogFragment() {
@@ -62,8 +59,5 @@ class DialogFragment : DialogFragment() {
         }
     }
 
-    companion object{
-        fun show(fm: FragmentManager)= DialogFragment().show(fm, DialogFragment::class.java.simpleName)
-    }
 
 }

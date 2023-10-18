@@ -47,6 +47,8 @@ class DetailMenuFragment : Fragment() {
 
         return binding.root
     }
+
+
     @Suppress("DEPRECATION")
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -115,6 +117,5 @@ class DetailMenuFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-
     }
 }

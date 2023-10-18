@@ -12,6 +12,12 @@
         <action
             android:id="@+id/action_homeFragment_to_detailMenuFragment"
             app:destination="@id/detailMenuFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_keranjangFragment"
+            app:destination="@id/keranjangFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailMenuFragment"
