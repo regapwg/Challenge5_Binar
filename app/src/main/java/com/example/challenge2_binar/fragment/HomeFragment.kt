@@ -103,7 +103,6 @@ class HomeFragment : Fragment() {
                     call: Call<KategoriMenu>,
                     response: Response<KategoriMenu>
                 ) {
-                    //Show Loading Indicator
                     val body = response.body()
                     Log.e("SimpleNetworking", Gson().toJson(body))
                     body?.let {
@@ -112,20 +111,13 @@ class HomeFragment : Fragment() {
                         if (status) {
                             if (!data.isNullOrEmpty()) {
                                 kategoriMenuAdapter.setData(data)
-                            } else {
-                                //???
                             }
-                        } else {
-                            //Jika kode != 200 handle disini
                         }
                     }
-
                 }
-
                 override fun onFailure(call: Call<KategoriMenu>, t: Throwable) {
                     Log.e("SimpleNetworking", t.message.toString())
                 }
-
             })
     }
 
