@@ -34,10 +34,10 @@ class KonfirmasiPesananFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var keranjangViewModel: KeranjangViewModel
     private lateinit var keranjangAdapter: KonfirmasiKeranjangAdapter
-    private lateinit var  auth: FirebaseAuth
-    private lateinit var  database: DatabaseReference
-    private lateinit var uid : String
-    private lateinit var user : User
+    private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
+    private lateinit var uid: String
+    private lateinit var user: User
 
     private var arrayListOrder = ArrayList<Order>()
 
@@ -45,19 +45,24 @@ class KonfirmasiPesananFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentKonfirmasiPesananBinding.inflate(inflater, container, false)
         val viewModelFactory = ViewModelFactory(requireActivity().application)
-        keranjangViewModel = ViewModelProvider(this, viewModelFactory)[KeranjangViewModel::class.java]
+        keranjangViewModel =
+            ViewModelProvider(this, viewModelFactory)[KeranjangViewModel::class.java]
 
         setupRecyclerView()
         buttonUpBack()
 
         val totalHarga = keranjangViewModel.totalPrice
         keranjangViewModel.getAllitems.observe(viewLifecycleOwner) { simpleChart ->
-            arrayListOrder.add(Order("", simpleChart[0].itemPrice,
-                simpleChart[0].itemName, simpleChart[0].itemQuantity ))
+            arrayListOrder.add(
+                Order(
+                    "", simpleChart[0].itemPrice,
+                    simpleChart[0].itemName, simpleChart[0].itemQuantity
+                )
+            )
 
         }
 
@@ -65,15 +70,18 @@ class KonfirmasiPesananFragment : Fragment() {
         binding.btnPesanFix.setOnClickListener {
             val orderRequest = OrderRequest(
                 username = user.username,
-                total =  totalHarga,
-                orders = arrayListOrder)
-            APIClient.instance.postOrder(orderRequest).enqueue(object : Callback<OrderResponse>{
+                total = totalHarga,
+                orders = arrayListOrder
+            )
+            APIClient.instance.postOrder(orderRequest).enqueue(object : Callback<OrderResponse> {
                 override fun onResponse(
                     call: Call<OrderResponse>,
                     response: Response<OrderResponse>
                 ) {
+                    val order = response.body()
                     val dialog = DialogFragment()
                     dialog.show(childFragmentManager, "dialog")
+                    Toast.makeText(context, order?.message, Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onFailure(call: Call<OrderResponse>, t: Throwable) {
@@ -81,8 +89,6 @@ class KonfirmasiPesananFragment : Fragment() {
                 }
             })
         }
-
-
 
         return binding.root
     }
@@ -94,15 +100,15 @@ class KonfirmasiPesananFragment : Fragment() {
         uid = auth.currentUser?.uid.toString()
         database = FirebaseDatabase.getInstance().getReference("user")
 
-        if(uid.isNotEmpty()){
+        if (uid.isNotEmpty()) {
             getDataUser()
         }
     }
 
 
-
     private fun setupRecyclerView() {
-        keranjangAdapter = KonfirmasiKeranjangAdapter(this@KonfirmasiPesananFragment,keranjangViewModel)
+        keranjangAdapter =
+            KonfirmasiKeranjangAdapter(this@KonfirmasiPesananFragment, keranjangViewModel)
         binding.rvKeranjang.setHasFixedSize(true)
         binding.rvKeranjang.layoutManager = LinearLayoutManager(requireContext())
         binding.rvKeranjang.adapter = keranjangAdapter
@@ -126,10 +132,10 @@ class KonfirmasiPesananFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 user = snapshot.getValue(User::class.java)!!
             }
+
             override fun onCancelled(error: DatabaseError) {}
         })
     }
-
 
 
     private fun buttonUpBack() {

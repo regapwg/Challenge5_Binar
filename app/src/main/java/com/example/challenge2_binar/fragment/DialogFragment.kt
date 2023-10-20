@@ -12,15 +12,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.challenge2_binar.R
 import com.example.challenge2_binar.databinding.FragmentDialogBinding
+import com.example.challenge2_binar.order.OrderResponse
 import com.example.challenge2_binar.viewModel.KeranjangViewModel
 import com.example.challenge2_binar.viewModel.ViewModelFactory
-import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 
 class DialogFragment : DialogFragment() {
 
     private lateinit var binding : FragmentDialogBinding
     private lateinit var keranjangViewModel: KeranjangViewModel
+
 
 
     override fun onCreateView(
@@ -46,11 +48,9 @@ class DialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        keranjangViewModel.itemLiveData.observe(viewLifecycleOwner) {}
         keranjangViewModel.totalPrice.observe(viewLifecycleOwner) {
             binding.tvTotalPembayaran.text = it.toString()
         }
-
         binding.btnHome.setOnClickListener {
             keranjangViewModel.deleteAllItem()
             Toast.makeText(context, "Kembali ke Halaman Home", Toast.LENGTH_LONG).show()
