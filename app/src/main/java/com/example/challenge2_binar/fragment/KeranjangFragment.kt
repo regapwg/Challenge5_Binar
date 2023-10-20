@@ -27,7 +27,7 @@ class KeranjangFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentKeranjangBinding.inflate(inflater, container, false)
 
@@ -45,7 +45,7 @@ class KeranjangFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        keranjangAdapter = KeranjangAdapter(keranjangViewModel)
+        keranjangAdapter = KeranjangAdapter(this,keranjangViewModel)
         binding.rvKeranjang.setHasFixedSize(true)
         binding.rvKeranjang.layoutManager = LinearLayoutManager(requireContext())
         binding.rvKeranjang.adapter = keranjangAdapter

@@ -8,9 +8,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity(tableName = "simple_chart_table" )
-data class SimpleChart (
+data class SimpleChart(
     @PrimaryKey(autoGenerate = true)
-    var itemId : Long = 0,
+    var itemId: Long = 0,
 
     @ColumnInfo(name = "item_name")
     var itemName: String,
@@ -19,7 +19,7 @@ data class SimpleChart (
     var itemQuantity: Int,
 
     @ColumnInfo(name = "item_image")
-    var itemImage: Int,
+    var itemImage: String?,
 
     @ColumnInfo(name = "item_price")
     var itemPrice: Int,

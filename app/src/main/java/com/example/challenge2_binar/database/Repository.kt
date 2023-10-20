@@ -40,7 +40,6 @@ class Repository(application: Application)  {
         }
     }
 
-
     fun getAllItems(): LiveData<List<SimpleChart>> = simpleChartDao.getAllCartItems()
 
     fun totalPrice() : LiveData<Int> {

@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.challenge2_binar.database.Repository
 import com.example.challenge2_binar.database.SimpleChart
-import com.example.challenge2_binar.produk.MenuList
+import com.example.challenge2_binar.produk.ListData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -18,7 +18,7 @@ class DetailViewModel(application: Application) : ViewModel(){
     private val _totalPrice = MutableLiveData<Int>()
     val totalPrice: LiveData<Int> = _totalPrice
 
-    private val _itemMenu = MutableLiveData<MenuList>()
+    private val _itemMenu = MutableLiveData<ListData>()
 
     private val repository: Repository
     init {
@@ -38,16 +38,16 @@ class DetailViewModel(application: Application) : ViewModel(){
         }
     }
 
-    fun itemMenu(item: MenuList) {
+    fun itemMenu(item: ListData) {
         _itemMenu.value = item
-        _totalPrice.value = item.hargaMenu
+        _totalPrice.value = item.harga!!
     }
 
     fun updateTotalPrice() {
         val currentAmount = _counter.value ?: 1
         val selectedItem = _itemMenu.value
         if (selectedItem != null) {
-            val totalPrice = selectedItem.hargaMenu * currentAmount
+            val totalPrice = selectedItem.harga!! * currentAmount
             _totalPrice.value = totalPrice
         }
     }
@@ -66,10 +66,10 @@ class DetailViewModel(application: Application) : ViewModel(){
                 totalPrice.value?.let { it1 ->
                     counter.value?.let { it2 ->
                         SimpleChart(
-                            itemName = it.namaMenu,
+                            itemName = it.nama!!,
                             itemQuantity = it2,
-                            itemImage = it.imgMenu,
-                            itemPrice = it.hargaMenu,
+                            itemImage = it.image_url,
+                            itemPrice = it.harga!!,
                             totalPrice = it1,
                         )
                     }

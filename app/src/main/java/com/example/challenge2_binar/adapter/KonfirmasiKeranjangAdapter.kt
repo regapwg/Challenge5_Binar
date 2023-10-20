@@ -1,7 +1,6 @@
 package com.example.challenge2_binar.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -11,17 +10,14 @@ import com.bumptech.glide.Glide
 import com.example.challenge2_binar.R
 import com.example.challenge2_binar.database.SimpleChart
 import com.example.challenge2_binar.databinding.ItemKeranjangBinding
-import com.example.challenge2_binar.fragment.HomeFragment
 import com.example.challenge2_binar.fragment.KeranjangFragment
+import com.example.challenge2_binar.fragment.KonfirmasiPesananFragment
 import com.example.challenge2_binar.viewModel.KeranjangViewModel
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-class KeranjangAdapter(private val context: KeranjangFragment,
-                       private val keranjangViewModel: KeranjangViewModel) :
-    RecyclerView.Adapter<KeranjangAdapter.KeranjangHolder>() {
+class KonfirmasiKeranjangAdapter(private val context: KonfirmasiPesananFragment,
+                                 private val keranjangViewModel: KeranjangViewModel) :
+    RecyclerView.Adapter<KonfirmasiKeranjangAdapter.KeranjangHolder>() {
 
     private var simpleChart: List<SimpleChart> = emptyList()
 
@@ -40,8 +36,8 @@ class KeranjangAdapter(private val context: KeranjangFragment,
             .into(holder.image)
 
         holder.btnDelete.setOnClickListener {
-                keranjangViewModel.delete(viewKeranjangHolder.itemId)
-                Snackbar.make(it, "Item dihapus dari keranjang!", Snackbar.LENGTH_SHORT).show()
+            keranjangViewModel.delete(viewKeranjangHolder.itemId)
+            Snackbar.make(it, "Item dihapus dari keranjang!", Snackbar.LENGTH_SHORT).show()
         }
 
         holder.btnPlus.setOnClickListener {

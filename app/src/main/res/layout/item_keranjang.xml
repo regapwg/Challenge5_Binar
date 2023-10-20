@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/img_view"
+            android:id="@+id/img_view_list"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:contentDescription="@string/ayam_bakar"
@@ -31,7 +31,7 @@
             android:layout_marginTop="4dp"
             android:text="@string/ayam_bakar"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/img_view"
+            app:layout_constraintStart_toEndOf="@+id/img_view_list"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -52,7 +52,7 @@
             android:layout_marginTop="5dp"
             android:text="Rp"
             style="@style/TeksKecilBold"
-            app:layout_constraintStart_toEndOf="@+id/img_view"
+            app:layout_constraintStart_toEndOf="@+id/img_view_list"
             app:layout_constraintTop_toBottomOf="@+id/tvMenuu" />
 
         <ImageView

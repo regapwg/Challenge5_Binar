@@ -1,38 +1,60 @@
 package com.example.challenge2_binar.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.challenge2_binar.R
 import com.example.challenge2_binar.databinding.ItemKategoriMenuBinding
-import com.example.challenge2_binar.produk.KategoriMenu
+import com.example.challenge2_binar.fragment.HomeFragment
+import com.example.challenge2_binar.modelCategory.KategoriData
 
 
-class MenuAdapterHorizontal(private val data: List<Any>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MenuAdapterHorizontal(
+    private val context: HomeFragment,
+    private var arrayList: List<KategoriData?>
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = ItemKategoriMenuBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemKategoriMenuBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MenuKategoriHolder(binding)
     }
 
+    @SuppressLint("CheckResult")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewKategoriHolder = holder as MenuKategoriHolder
-        viewKategoriHolder.bindContent(data[position] as KategoriMenu)
+        viewKategoriHolder.bindContent(arrayList[position] as KategoriData)
+
+        Glide.with(context)
+            .load(arrayList[position]?.image_url)
+            .into(holder.image)
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = arrayList.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(data: List<KategoriData?>){
+        this.arrayList = data
+        notifyDataSetChanged()
+    }
+
+    class MenuKategoriHolder(private val binding: ItemKategoriMenuBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val image: ImageView = itemView.findViewById(R.id.imgViewCategory)
+
+
+        fun bindContent(kategoriData: KategoriData) {
+
+//        binding.imgView.setImageResource(kategoriData.image_url)
+            binding.tvMenuKategori.text = kategoriData.nama
+        }
+    }
 
 
 }
 
-class MenuKategoriHolder(private val binding: ItemKategoriMenuBinding)
-    : RecyclerView.ViewHolder(binding.root) {
 
-    fun bindContent(kategoriMenu: KategoriMenu) {
-        binding.imgView.setImageResource(kategoriMenu.imgMenu)
-        binding.tvMenuKategori.text = kategoriMenu.namaMenu
-    }
-}

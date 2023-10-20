@@ -4,13 +4,19 @@ package com.example.challenge2_binar.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.challenge2_binar.R
 import com.example.challenge2_binar.databinding.ItemMenuGridBinding
 import com.example.challenge2_binar.databinding.ItemMenuListBinding
-import com.example.challenge2_binar.produk.MenuList
+import com.example.challenge2_binar.fragment.HomeFragment
+import com.example.challenge2_binar.produk.ListData
 
-
-class NewAdapter(private val data: List<Any>, val isGrid: Boolean, private var listener: (MenuList) -> Unit)
+class NewAdapter(private val context: HomeFragment,
+                 private var data: List<ListData?>,
+                 val isGrid: Boolean,
+                 private var listener: (ListData) -> Unit)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
@@ -29,44 +35,72 @@ class NewAdapter(private val data: List<Any>, val isGrid: Boolean, private var l
 
     }
 
+    @SuppressLint("CheckResult")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (isGrid) {
             val gridHolder = holder as GridMenuHolder
-            gridHolder.onBind(data[position] as MenuList)
+            gridHolder.onBind(data[position] as ListData)
+
             val listenerItem = data[position]
+
+            Glide.with(context)
+                .load(data[position]?.image_url)
+                .into(holder.image)
+
             holder.itemView.setOnClickListener{
-                listener(listenerItem as MenuList)
+                listener(listenerItem as ListData)
             }
 
         } else {
             val linearholder = holder as LinearMenuHolder
-            linearholder.onBind(data[position] as MenuList)
+            linearholder.onBind(data[position] as ListData)
             val listenerItem = data[position]
+
+            Glide.with(context)
+                .load(data[position]?.image_url)
+                .into(holder.image)
+
             holder.itemView.setOnClickListener{
-                listener(listenerItem as MenuList)
+                listener(listenerItem as ListData)
             }
         }
     }
 
     override fun getItemCount(): Int = data.size
-}
 
-class GridMenuHolder(private val binding: ItemMenuGridBinding)
-    : RecyclerView.ViewHolder(binding.root) {
-    fun onBind(menuList: MenuList) {
-        binding.tvMenu.text =menuList.namaMenu
-        binding.tvHarga.text=menuList.hargaMenu.toString()
-        binding.imgView.setImageResource(menuList.imgMenu)
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(datalist: List<ListData?>){
+        this.data = datalist
+        notifyDataSetChanged()
     }
 
-}
+//    interface OnAdapterListener{
+//        fun onClick(data: ListData?)
+//    }
 
-class LinearMenuHolder(private val binding: ItemMenuListBinding)
-    : RecyclerView.ViewHolder(binding.root) {
-    fun onBind(menuList: MenuList) {
-        binding.tvMenuu.text =menuList.namaMenu
-        binding.tvHarga.text=menuList.hargaMenu.toString()
-        binding.imgView.setImageResource(menuList.imgMenu)
+
+
+    class GridMenuHolder(private val binding: ItemMenuGridBinding)
+        : RecyclerView.ViewHolder(binding.root) {
+
+        val image: ImageView = itemView.findViewById(R.id.imgViewCategory)
+        fun onBind(menuList: ListData) {
+            binding.tvMenu.text =menuList.nama
+            binding.tvHarga.text=menuList.harga_format.toString()
+        }
+
     }
 
+    class LinearMenuHolder(private val binding: ItemMenuListBinding)
+        : RecyclerView.ViewHolder(binding.root) {
+        val image: ImageView = itemView.findViewById(R.id.img_view_list)
+        fun onBind(menuList: ListData) {
+            binding.tvMenuu.text =menuList.nama
+            binding.tvHarga.text=menuList.harga_format.toString()
+        }
+
+
+    }
 }
+

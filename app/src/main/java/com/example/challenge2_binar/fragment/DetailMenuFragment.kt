@@ -2,8 +2,6 @@ package com.example.challenge2_binar.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,9 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.challenge2_binar.R
 import com.example.challenge2_binar.databinding.FragmentDetailMenuBinding
-import com.example.challenge2_binar.produk.MenuList
+import com.example.challenge2_binar.produk.ListData
 import com.example.challenge2_binar.viewModel.DetailViewModel
 import com.example.challenge2_binar.viewModel.ViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -54,20 +53,20 @@ class DetailMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dataDetail = arguments?.getParcelable<MenuList>("pickItem")
+
+
+        val dataDetail = arguments?.getParcelable<ListData?>("pickItem")
         dataDetail?.let {
-            binding.imgDetail.setImageResource(it.imgMenu)
-            binding.tvMenuu.text = dataDetail.namaMenu
-            binding.tvNamaToko.text = dataDetail.namaToko
-            binding.tvHarga.text = dataDetail.hargaMenu.toString()
-            binding.tvDescription.text = dataDetail.description
-            binding.tvTotalHarga.text = dataDetail.hargaMenu.toString()
-            binding.tvAlamat.text = dataDetail.location
+            binding.tvMenuu.text = dataDetail.nama
+            binding.tvNamaToko.text = "Binar Cafe"
+            binding.tvHarga.text = dataDetail.harga_format.toString()
+            binding.tvDescription.text = dataDetail.detail
+            binding.tvTotalHarga.text = dataDetail.harga.toString()
+            binding.tvAlamat.text = dataDetail.alamat_resto
             detailViewModel.itemMenu(it)
-            binding.tvAlamat.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(dataDetail.maps))
-                startActivity(intent)
-            }
+            Glide.with(this)
+                .load(dataDetail.image_url)
+                .into(binding.imgDetail)
         }
         submitChart()
         buttonUpBack()
