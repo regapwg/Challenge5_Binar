@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.challenge2_binar.R
 import com.example.challenge2_binar.databinding.FragmentProfileBinding
 import com.example.challenge2_binar.user.User
+import com.example.challenge2_binar.util.LoginSharedPreference
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -26,6 +27,8 @@ class ProfileFragment : Fragment() {
     private lateinit var  database: DatabaseReference
     private lateinit var uid : String
     private lateinit var user : User
+
+    private lateinit var sharedPreference: LoginSharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,6 +73,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun logout() {
+        sharedPreference = LoginSharedPreference(requireContext())
+        sharedPreference.clearPreferences()
+
         auth = FirebaseAuth.getInstance()
         auth.signOut()
         findNavController().navigate(R.id.action_profileFragment_to_loginActivity)

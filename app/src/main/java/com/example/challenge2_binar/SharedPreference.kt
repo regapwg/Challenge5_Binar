@@ -1,7 +1,7 @@
 package com.example.challenge2_binar
 
 import android.content.Context
-import androidx.core.content.edit
+
 
 class SharedPreference(context: Context) {
     private val sharedPreference = "userPrefer"

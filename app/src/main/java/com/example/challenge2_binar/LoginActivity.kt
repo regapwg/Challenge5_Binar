@@ -1,20 +1,22 @@
 package com.example.challenge2_binar
 
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.challenge2_binar.databinding.ActivityLoginBinding
+import com.example.challenge2_binar.util.LoginSharedPreference
+import com.example.challenge2_binar.util.LoginSharedPreference.Companion.is_login
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.core.Context
+
 
 class LoginActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
-    private lateinit var sharedPreference: SharedPreference
+    private lateinit var sharedPreference: LoginSharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -23,6 +25,8 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
+        sharedPreference = LoginSharedPreference(this)
+        checkLogin()
 
         binding.crashButton.setOnClickListener {
             throw RuntimeException("Test Crash") // Force a crash
@@ -60,18 +64,20 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-//    private fun checkLogin(){
-//        if(sharedPreference.getStatusLogin()){
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
-//            Toast.makeText(this, "Selamat datang kembali", Toast.LENGTH_SHORT).show()
-//        }
-//    }
+    private fun checkLogin(){
+        val getLogin = sharedPreference.getPreferences(is_login)
+        if(getLogin != null){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "Selamat datang kembali", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private fun loginFirebase(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) {
                 if (it. isSuccessful){
+                    sharedPreference.setPreferences(is_login, email)
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     Toast.makeText(this, "Selamat datang $email", Toast.LENGTH_SHORT).show()

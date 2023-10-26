@@ -83,6 +83,7 @@ class HomeFragment : Fragment() {
 
 
         homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
+
         sharedPreference = SharedPreference(requireContext())
         homeViewModel.isGrid.value = sharedPreference.getPreferences()
         homeViewModel.isGrid.observe(viewLifecycleOwner) {
