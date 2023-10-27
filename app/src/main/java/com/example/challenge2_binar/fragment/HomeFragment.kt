@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -111,12 +112,14 @@ class HomeFragment : Fragment() {
                         val status = if (body.status != null) true else false
                         if (status) {
                             if (!data.isNullOrEmpty()) {
+                                binding.progressBarCategory.isVisible = false
                                 kategoriMenuAdapter.setData(data)
                             }
                         }
                     }
                 }
                 override fun onFailure(call: Call<KategoriMenu>, t: Throwable) {
+                    binding.progressBarCategory.isVisible = false
                     Log.e("SimpleNetworking", t.message.toString())
                 }
             })
@@ -129,12 +132,15 @@ class HomeFragment : Fragment() {
             when (it.status){
                 Status.SUCCESS -> {
                     Log.e("SimpleNetworking", Gson().toJson(it.data))
+                    binding.progressBarMenu.isVisible = false
                     it.data?.data?.let { it1 -> menuAdapter.setData(it1) }
                 }
                 Status.ERROR -> {
+                    binding.progressBarMenu.isVisible = false
                     Log.e("SimpleNetworking", it.message.toString())
                 }
                 Status.LOADING -> {
+                    binding.progressBarMenu.isVisible = true
                 }
             }
         }
