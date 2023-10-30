@@ -20,7 +20,6 @@ class LoginSharedPreference(context: Context) {
     fun clearPreferences(){
        editor.clear()
        editor.commit()
-
     }
 
     companion object{

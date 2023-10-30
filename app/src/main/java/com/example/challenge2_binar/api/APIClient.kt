@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object APIClient {
 
-    const val BASE_URL = "https://5ce14c6d-8f14-4dd9-8cb2-3c5beb03948d.mock.pstmn.io/"
+    const val BASE_URL = "https://e2b1f102-c675-408e-8fc2-fdb1e2634183.mock.pstmn.io/"
 
     private val logging: HttpLoggingInterceptor
         get() {

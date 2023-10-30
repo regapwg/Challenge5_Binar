@@ -37,6 +37,7 @@ class Repository(application: Application)  {
     fun deleteAll(){
         executorService.execute {
             simpleChartDao.deleteAll()
+
         }
     }
 

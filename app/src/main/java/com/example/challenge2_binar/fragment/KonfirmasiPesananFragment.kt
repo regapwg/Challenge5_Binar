@@ -1,6 +1,7 @@
 package com.example.challenge2_binar.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,7 +65,6 @@ class KonfirmasiPesananFragment : Fragment() {
                     simpleChart[0].itemName, simpleChart[0].itemQuantity
                 )
             )
-
         }
 
 
